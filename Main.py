@@ -1,7 +1,9 @@
-import os
 import random
 
 import pygame
+
+from menu.Item import Item
+from menu.Menu import Menu
 
 window = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("RUN!")
@@ -45,6 +47,11 @@ class Block:
     def render(self):
         screen.blit(self.bitmap, (self.x, self.y))
 
+
+w, h = pygame.display.get_surface().get_size()
+
+menu = Menu(w, h, [])
+menu.menu(window)
 
 player = Player(0, 360)
 block = Block(800, 360)
@@ -102,8 +109,12 @@ while done:
     # Relation logic
     if block is not None:
         if player.y + 40 > block.y and player.x + 40 > block.x > player.x + 30:
-            done = False
-        if block.x < player.x+30 and player.y > block.y:
+            menu = Menu(w, h, [])
+            menu.menu(window)
+            block = Block(800, 360)
+            player = Player(0, 360)
+
+        if block.x < player.x + 30 and player.y > block.y:
             player.y = block.y
 
     pygame.display.flip()
