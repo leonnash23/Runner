@@ -109,7 +109,7 @@ while done:
     # Relation logic
     if block is not None:
         if player.y + 40 > block.y and player.x + 40 > block.x > player.x + 30:
-            menu = Menu(w, h, [])
+            menu = Menu(w, h, [Item("Points = %d" % player.points, w, h/2)])
             menu.menu(window)
             block = Block(800, 360)
             player = Player(0, 360)

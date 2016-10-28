@@ -6,9 +6,14 @@ from menu.Item import Item
 
 class Menu:
     def __init__(self, w, h, items):
+        self.items = []
         for i in items:
             self.items.append(i)
-        self.items = [Item("Старт", w, h / 2 - 30)]
+        if len(self.items) == 0:
+            self.items.append(Item("Старт", w, h / 2 - 30))
+        else:
+            self.items.append(Item("Старт", w, h / 2 - 30+self.items[-1].height+30))
+
         self.menu_screen = pygame.Surface((w, h))
         self.done = True
 
