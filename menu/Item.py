@@ -10,6 +10,5 @@ class Item:
         self.y = y
         self.width = self.font.size(text)[0]
         self.height = self.font.size(text)[1]
-        self.chosen = False
-        self.color = (58, 170, 207)
+        self.color = (255, 13, 0)
 

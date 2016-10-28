@@ -1,6 +1,7 @@
 import pygame
 import sys
 
+from menu.ChooseItem import ChooseItem
 from menu.Item import Item
 
 
@@ -10,9 +11,9 @@ class Menu:
         for i in items:
             self.items.append(i)
         if len(self.items) == 0:
-            self.items.append(Item("Старт", w, h / 2 - 30))
+            self.items.append(ChooseItem("Старт", w, h / 2 - 30))
         else:
-            self.items.append(Item("Старт", w, h / 2 - 30+self.items[-1].height+30))
+            self.items.append(ChooseItem("Старт", w, h / 2 - 30+self.items[-1].height+30))
 
         self.menu_screen = pygame.Surface((w, h))
         self.done = True
