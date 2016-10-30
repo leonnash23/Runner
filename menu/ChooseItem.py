@@ -12,3 +12,9 @@ class ChooseItem(Item):
     def check_click(self, x, y):
         if self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height:
             self.notify_all(x, y, self.type)
+
+    def check_mouseovers(self, x, y):
+        if self.x <= x <= self.x + self.width and self.y <= y <= self.y + self.height:
+            self.color = (19, 106, 135)
+        else:
+            self.color = (58, 170, 207)

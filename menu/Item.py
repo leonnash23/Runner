@@ -20,3 +20,6 @@ class Item(ObservableButton):
 
     def check_click(self, x, y):
         pass
+
+    def check_mouseovers(self, x, y):
+        pass

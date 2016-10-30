@@ -21,13 +21,6 @@ class Menu(ButtonsListener):
             self.items.append(i)
         self.add_item(ChooseItem("Старт", w, h / 2 - 30, Buttons.Start))
         self.add_item(ChooseItem("Выход", w, h / 2 - 30, Buttons.Quit))
-        # if len(self.items) == 0:
-        #     self.items.append(ChooseItem("Старт", w, h / 2 - 30, Buttons.Start))
-        # else:
-        #     self.items.append(ChooseItem("Старт", w, h / 2 - 30 + self.items[-1].height + 30, Buttons.Start))
-        # for i in self.items:
-        #     i.register(self)
-
         self.menu_screen = pygame.Surface((w, h))
         self.done = True
 
@@ -35,9 +28,13 @@ class Menu(ButtonsListener):
         for i in self.items:
             i.render(self.menu_screen)
 
-    def check_items(self, x, y):
+    def check_items_click(self, x, y):
         for i in self.items:
             i.check_click(x, y)
+
+    def check_items_mouseovers(self, x, y):
+        for i in self.items:
+            i.check_mouseovers(x, y)
 
     def menu(self, parent):
         pygame.key.set_repeat(0, 0)
@@ -47,7 +44,10 @@ class Menu(ButtonsListener):
                     sys.exit(0)
                 if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                     pos = pygame.mouse.get_pos()
-                    self.check_items(pos[0], pos[1])
+                    self.check_items_click(pos[0], pos[1])
+                if e.type == pygame.MOUSEMOTION:
+                    pos = pygame.mouse.get_pos()
+                    self.check_items_mouseovers(pos[0], pos[1])
 
             self.menu_screen.fill((255, 255, 255))
             self.render()
