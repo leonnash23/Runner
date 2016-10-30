@@ -4,6 +4,8 @@ import pygame
 
 from menu.Item import Item
 from menu.Menu import Menu
+from playobjects.Block import Block
+from playobjects.Player import Player
 
 window = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("RUN!")
@@ -14,39 +16,6 @@ x = 0
 y = 0
 square_go_right = True
 square_go_down = True
-
-
-class Player:
-    def __init__(self, xpos, ypos):
-        self.points = 0
-        self.x = xpos
-        self.y = ypos
-        self.up = False
-        self.down = False
-        self.bitmap = pygame.image.load("img/player.png")
-        self.bitmap.set_colorkey((255, 255, 255))
-
-    def render(self):
-        screen.blit(self.bitmap, (self.x, self.y))
-
-
-class Block:
-    def __init__(self, xpos, ypos):
-        self.x = xpos
-        self.y = ypos
-        self.speed = -0.5
-        self.bitmap = pygame.image.load("img/block.png")
-        self.bitmap.set_colorkey((255, 255, 255))
-
-    def move(self):
-        self.x += self.speed
-        w, h = self.bitmap.get_size()
-        w += 1
-        self.bitmap = pygame.transform.scale(self.bitmap, (w, h))
-
-    def render(self):
-        screen.blit(self.bitmap, (self.x, self.y))
-
 
 w, h = pygame.display.get_surface().get_size()
 
@@ -73,11 +42,11 @@ while done:
     screen.fill((255, 255, 255))
 
     # render
-    player.render()
+    player.render(screen)
     f = font.render("points %d" % player.points, 1, (0, 0, 0))
     screen.blit(f, (0, 0))
     if block is not None:
-        block.render()
+        block.render(screen)
     window.blit(screen, (0, 0))
 
     # Player logic
@@ -109,7 +78,7 @@ while done:
     # Relation logic
     if block is not None:
         if player.y + 40 > block.y and player.x + 40 > block.x > player.x + 30:
-            menu = Menu(w, h, [Item("Points = %d" % player.points, w, h/2)])
+            menu = Menu(w, h, [Item("Points = %d" % player.points, w, h / 2)])
             menu.menu(window)
             block = Block(800, 360)
             player = Player(0, 360)
