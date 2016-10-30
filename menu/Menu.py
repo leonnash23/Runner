@@ -1,11 +1,17 @@
-import pygame
 import sys
 
+import pygame
+
+from Abstract.Buttons import Buttons
+from Abstract.ButtonsListener import ButtonsListener
 from menu.ChooseItem import ChooseItem
-from menu.Item import Item
 
 
-class Menu:
+class Menu(ButtonsListener):
+    def update(self, x, y, b: Buttons):
+        if b == Buttons.Start:
+            self.done = False
+
     def __init__(self, w, h, items):
         self.items = []
         for i in items:
@@ -13,20 +19,20 @@ class Menu:
         if len(self.items) == 0:
             self.items.append(ChooseItem("Старт", w, h / 2 - 30))
         else:
-            self.items.append(ChooseItem("Старт", w, h / 2 - 30+self.items[-1].height+30))
+            self.items.append(ChooseItem("Старт", w, h / 2 - 30 + self.items[-1].height + 30))
+        for i in self.items:
+            i.register(self)
 
         self.menu_screen = pygame.Surface((w, h))
         self.done = True
 
     def render(self):
         for i in self.items:
-            self.menu_screen.blit(i.font.render(i.text, 1, i.color), (i.x, i.y))
+            i.render(self.menu_screen)
 
     def check_items(self, x, y):
         for i in self.items:
-            if i.x <= x <= i.x+i.width and i.y <= y <= i.y+i.height:
-                if i.text == "Старт":
-                    self.done = False
+            i.check_click(x, y)
 
     def menu(self, parent):
         pygame.key.set_repeat(0, 0)
