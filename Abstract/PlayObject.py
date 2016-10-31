@@ -9,6 +9,12 @@ class PlayObject(metaclass=ABCMeta):
         self.y = ypos
         self.bitmap = pygame.image.load(filename)
         self.bitmap.set_colorkey((255, 255, 255))
+        self.w, self.h = self.bitmap.get_size()
 
     def render(self, screen):
         screen.blit(self.bitmap, (self.x, self.y))
+
+    def check_collision(self, ob):
+        if self.y + self.h > ob.y and self.x + self.w > ob.x > self.x + 30:
+            return True
+        return False

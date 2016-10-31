@@ -53,6 +53,7 @@ class Menu(ButtonsListener):
             self.render()
             parent.blit(self.menu_screen, (0, 0))
             pygame.display.flip()
+        pygame.key.set_repeat(1, 1)
 
     def add_item(self, item: Item):
         item.register(self)

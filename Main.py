@@ -35,10 +35,8 @@ while done:
         if e.type == pygame.QUIT:
             done = False
         if e.type == pygame.KEYDOWN:
-            if e.key == pygame.K_SPACE and player.y == 360:
-                player.up = True
-        if e.type == pygame.KEYUP:
-            player.up = False
+            if e.key == pygame.K_SPACE:
+                player.jump()
     screen.fill((255, 255, 255))
 
     # render
@@ -49,41 +47,32 @@ while done:
         block.render(screen)
     window.blit(screen, (0, 0))
 
-    # Player logic
-    if player.y < 360 and not player.up or player.down:
-        player.y += 0.8
-    elif player.y > 200 and player.up:
-        player.y -= 1.2
-    if player.y >= 360:
-        player.y = 360
-        player.down = False
-    if player.y <= 200:
-        player.down = True
+    player.move()
 
     # Block logic
 
-    if block is not None:
+    if block.visible:
         block.move()
-        if block.x < 0:
-            block.y += 4 / 5
         if block.x < -50:
-            del block
-            block = None
+            block.visible = False
+            block.realspeed = 0
             player.points += 1
+            if player.points % 5 == 0:
+                block.speed -= 0.1
 
-    if block is None:
+    if not block.visible:
         if random.randint(0, 10000) > 9990:
-            block = Block(800, 360)
+            block.reset()
 
     # Relation logic
-    if block is not None:
-        if player.y + 40 > block.y and player.x + 40 > block.x > player.x + 30:
+    if block.visible:
+        if player.check_collision(block):
             menu = Menu(w, h, [Item("Points = %d" % player.points, w, h / 2)])
             menu.menu(window)
             block = Block(800, 360)
             player = Player(0, 360)
 
-        if block.x < player.x + 30 and player.y > block.y:
+        if block.x < player.x + 30 and player.y - player.h > block.y:
             player.y = block.y
 
     pygame.display.flip()
