@@ -15,11 +15,13 @@ class Player(PlayObject):
             self.up = True
 
     def move(self):
+        # ceiling
         if self.y <= 200:
             self.down = True
             self.up = False
         if self.down:
             self.speed = 0.8
+        # floor
         if self.y >= 360 and self.down:
             self.y = 360
             self.down = False

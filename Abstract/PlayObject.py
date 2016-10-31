@@ -15,6 +15,6 @@ class PlayObject(metaclass=ABCMeta):
         screen.blit(self.bitmap, (self.x, self.y))
 
     def check_collision(self, ob):
-        if self.y + self.h > ob.y and self.x + self.w > ob.x > self.x + 30:
+        if self.y + self.h > ob.y and self.x + self.w > ob.x > self.x + self.w*3/4:
             return True
         return False

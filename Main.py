@@ -55,10 +55,10 @@ while done:
         block.move()
         if block.x < -50:
             block.visible = False
-            block.realspeed = 0
+            block.real_speed = 0
             player.points += 1
             if player.points % 5 == 0:
-                block.speed -= 0.1
+                block.speed_increase_step
 
     if not block.visible:
         if random.randint(0, 10000) > 9990:
