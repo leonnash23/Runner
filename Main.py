@@ -47,6 +47,16 @@ while done:
         block.render(screen)
     window.blit(screen, (0, 0))
 
+    # Relation logic
+    if block.visible:
+        if player.check_collision(block):
+            menu = Menu(w, h, [Item("Points = %d" % player.points, w, h / 2)])
+            menu.menu(window)
+            block = Block(800, 360)
+            player = Player(0, 360)
+        if block.x < player.x + 40 and player.y + player.h > block.y:
+            player.y = min(360, block.y-40)
+
     player.move()
 
     # Block logic
@@ -54,6 +64,7 @@ while done:
     if block.visible:
         block.move()
         if block.x < -50:
+            block.y = 400
             block.visible = False
             block.real_speed = 0
             player.points += 1
@@ -63,16 +74,5 @@ while done:
     if not block.visible:
         if random.randint(0, 10000) > 9990:
             block.reset()
-
-    # Relation logic
-    if block.visible:
-        if player.check_collision(block):
-            menu = Menu(w, h, [Item("Points = %d" % player.points, w, h / 2)])
-            menu.menu(window)
-            block = Block(800, 360)
-            player = Player(0, 360)
-
-        if block.x < player.x + 30 and player.y - player.h > block.y:
-            player.y = block.y
 
     pygame.display.flip()
