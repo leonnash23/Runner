@@ -69,7 +69,7 @@ while done:
             block.real_speed = 0
             player.points += 1
             if player.points % 5 == 0:
-                block.speed_increase_step
+                block.increase_speed()
 
     if not block.visible:
         if random.randint(0, 10000) > 9990:
