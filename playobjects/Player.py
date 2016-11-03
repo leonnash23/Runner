@@ -13,7 +13,7 @@ class Player(PlayObject):
         bitmaps[0].set_colorkey((255, 255, 255))
         bitmaps[1].set_colorkey((255, 255, 255))
         bitmaps[2].set_colorkey((255, 255, 255))
-        self.animator = Animator(bitmaps)
+        self.running_animator = Animator(bitmaps)
         self.points = 0
         self.up = False
         self.down = False
@@ -25,8 +25,8 @@ class Player(PlayObject):
             self.up = True
 
     def move(self, dt):
-        self.animator.update(dt)
-        self.bitmap = self.animator.getImg()
+        self.running_animator.update(dt)
+        self.bitmap = self.running_animator.getImg()
         # ceiling
         if self.y <= 200:
             self.down = True

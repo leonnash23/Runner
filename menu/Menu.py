@@ -37,6 +37,7 @@ class Menu(ButtonsListener):
             i.check_mouseovers(x, y)
 
     def menu(self, parent):
+        time_delay = pygame.time.Clock()
         pygame.key.set_repeat(0, 0)
         while self.done:
             for e in pygame.event.get():
@@ -53,6 +54,7 @@ class Menu(ButtonsListener):
             self.render()
             parent.blit(self.menu_screen, (0, 0))
             pygame.display.flip()
+            time_delay.tick(40)
         pygame.key.set_repeat(1, 1)
 
     def add_item(self, item: Item):
