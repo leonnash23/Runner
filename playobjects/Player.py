@@ -20,7 +20,7 @@ class Player(PlayObject):
 
     def jump(self):
         if self.y == 360:
-            self.speed = -1.2
+            self.speed = -5
             self.up = True
             self.bitmap_id = 0
 
@@ -30,7 +30,7 @@ class Player(PlayObject):
             self.down = True
             self.up = False
         if self.down:
-            self.speed = 0.8
+            self.speed = 3
         # floor
         if self.y >= 360 and self.down:
             self.y = 360

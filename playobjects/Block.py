@@ -6,9 +6,9 @@ from Abstract.PlayObject import PlayObject
 class Block(PlayObject):
     def __init__(self, xpos, ypos):
         super().__init__(xpos, ypos, "img/block.png")
-        self.speed = -0.5
-        self.speed_increase_step = -0.1
-        self.real_speed = -0.5
+        self.speed = -5
+        self.speed_increase_step = -2.5
+        self.real_speed = self.speed
         self.visible = True
 
     def move(self):

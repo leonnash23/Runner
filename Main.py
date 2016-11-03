@@ -29,6 +29,8 @@ font = pygame.font.Font("fonts/Mono.ttf", 32)
 
 done = True
 pygame.key.set_repeat(1, 1)
+time_delay = pygame.time.Clock()
+
 
 while done:
     for e in pygame.event.get():
@@ -72,7 +74,8 @@ while done:
                 block.increase_speed()
 
     if not block.visible:
-        if random.randint(0, 10000) > 9990:
+        if random.randint(0, 1000) > 990:
             block.reset()
 
     pygame.display.flip()
+    dt = time_delay.tick(150)
