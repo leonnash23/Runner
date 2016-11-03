@@ -30,7 +30,7 @@ font = pygame.font.Font("fonts/Mono.ttf", 32)
 done = True
 pygame.key.set_repeat(1, 1)
 time_delay = pygame.time.Clock()
-
+dt = 0
 
 while done:
     for e in pygame.event.get():
@@ -56,10 +56,10 @@ while done:
             menu.menu(window)
             block = Block(800, 360)
             player = Player(0, 360)
-        if block.x < player.x + 40 and player.y + player.h > block.y:
-            player.y = min(360, block.y-40)
+        if block.x < player.x and player.y + player.h > block.y:
+            player.y = min(360, block.y)
 
-    player.move()
+    player.move(dt)
 
     # Block logic
 
@@ -78,4 +78,4 @@ while done:
             block.reset()
 
     pygame.display.flip()
-    dt = time_delay.tick(150)
+    dt = time_delay.tick(200)
