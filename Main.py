@@ -9,6 +9,8 @@ from playobjects.Player import Player
 
 window = pygame.display.set_mode((800, 400))
 pygame.display.set_caption("RUN!")
+icon = pygame.image.load("img/block.png")
+pygame.display.set_icon(icon)
 
 screen = pygame.Surface((800, 400))
 
